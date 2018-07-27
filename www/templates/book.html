@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>推荐书目</title>
+</head>
+<body>
+    <div id="centent">
+        <table width="600" align="center">
+            {% for top in tops %}
+            <tr align="center">
+                <td><a href="/recommend/{{top[0]}}">{{top[1]}}</a></td>
+                <td>作者:{{top[2]}}</td>
+            </tr>
+             {% endfor %}
+        </table>
+        <br/>
+    </div>
+    <div align="right">
+        <a href="/">返回主页</a>
+    </div>
+</body>
+</html>

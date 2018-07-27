@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <style type="text/css">
+    html {
+        height: 100%;
+    }
+    body {
+        width: 100%;
+        height: 100%;
+    }
+    .main {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content:center;
+        align-items: center;
+     }
+    .center {
+        margin: 0 auto;
+        display: inline-block;
+    }
+    .center div{
+        float: left;
+    }
+    .elem {
+        font-size: 1.5em;
+    }
+    button.elem {
+        margin-left: 1em;
+    }
+    </style>
+</head>
+<body>
+  <div class="main">
+    <form action="/" method="post" class="center">
+      <div><input name="bookname" placeholder="输入书名" class="elem"></div>
+      <div><button type="submit" class="elem">查询</button></div>
+    </form>
+  </div>
+
+
+</body>
+</html>
