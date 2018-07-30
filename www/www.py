@@ -42,11 +42,12 @@ def index():
 
 @app.route('/',methods = ['POST'])
 def submit():
-    try: #一定要有,不然别人随便post点东西来就出问题了
         bookname = request.form['bookname'].strip()
         if bookname:
             app.logger.info('用户查询 %s' % bookname)
+            session = DBSession()
             inquiry_book = session.query(Book).filter(Book.title == bookname).first()
+            session.commit()
             if inquiry_book:
                 bookid = inquiry_book.id
                 salt_bookid = salt(bookid)  # 这里对bookid进行加密
@@ -56,16 +57,16 @@ def submit():
                 return render_template('not_find.html',info = '本书未收录。'), 404
         else:
             return render_template('not_find.html',info = '输入不能为空。'), 404
-    except Exception as e:
-        app.logger.warning(e)
-        return render_template('not_find.html',info = '出错了!'),404
+
 
 @app.route('/recommend/<int:salt_bookid>', methods = ['GET'])
 #可以用 <converter:variable_name> 指定一个可选的转换器。
 def recommend(salt_bookid):
     bookid = un_salt(salt_bookid)
     app.logger.info('查询 %s' % bookid)
+    session = DBSession()
     top_info = session.query(TopRelate).filter(TopRelate.bookid == bookid).first()
+    session.commit()
     if top_info:
         app.logger.info('找到推荐')
         top_ids = [top_info.top1,top_info.top2,top_info.top3,top_info.top4,top_info.top5]
@@ -73,6 +74,7 @@ def recommend(salt_bookid):
         topbooks = []
         for top_id in top_ids:
             t = session.query(Book).filter(Book.id == top_id).first()
+            session.commit()
             topbooks.append([salt(t.id),t.title,t.author])
         return render_template('book.html', tops=topbooks)
     else:
@@ -88,9 +90,8 @@ if __name__ == '__main__':
     logger = logging.getLogger(__name__)
 
     # 初始化数据库连接
-    engine = create_engine(configs['db'],pool_recycle=120)
+    engine = create_engine(configs['db'], pool_recycle=3600)
     DBSession = sessionmaker(bind=engine)
-    session = DBSession()
     #启动服务器
     app.logger.info('Start the server!!!!!')
     app.run(host='0.0.0.0',port = 80) #port = 80,debug = True
