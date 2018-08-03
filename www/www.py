@@ -47,7 +47,7 @@ def submit():
             app.logger.info('用户查询 %s' % bookname)
             session = DBSession()
             inquiry_book = session.query(Book).filter(Book.title == bookname).first()
-            session.commit()
+            session.close()
             if inquiry_book:
                 bookid = inquiry_book.id
                 salt_bookid = salt(bookid)  # 这里对bookid进行加密
@@ -66,7 +66,6 @@ def recommend(salt_bookid):
     app.logger.info('查询 %s' % bookid)
     session = DBSession()
     top_info = session.query(TopRelate).filter(TopRelate.bookid == bookid).first()
-    session.commit()
     if top_info:
         app.logger.info('找到推荐')
         top_ids = [top_info.top1,top_info.top2,top_info.top3,top_info.top4,top_info.top5]
@@ -74,11 +73,12 @@ def recommend(salt_bookid):
         topbooks = []
         for top_id in top_ids:
             t = session.query(Book).filter(Book.id == top_id).first()
-            session.commit()
             topbooks.append([salt(t.id),t.title,t.author])
+        session.close()
         return render_template('book.html', tops=topbooks)
     else:
         app.logger.info('未找到推荐')
+        session.close()
         return render_template('not_find.html',info = '本书未收录')
 
 
