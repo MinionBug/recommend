@@ -1,0 +1,15 @@
+2018/08/10 21:26:18 main_v2.py[line:26] INFO execute sql: select * from booklist
+2018/08/10 21:28:40 main_v2.py[line:26] INFO execute sql: select * from booklist
+2018/08/10 21:29:34 main_v2.py[line:59] INFO bpmatrix finish。
+2018/08/10 21:29:34 main_v2.py[line:78] INFO iimatrix start:
+2018/08/10 21:29:34 main_v2.py[line:83] INFO line Done : 0
+2018/08/10 21:29:34 main_v2.py[line:83] INFO line Done : 1
+2018/08/10 21:29:34 main_v2.py[line:83] INFO line Done : 2
+2018/08/10 21:29:34 main_v2.py[line:85] INFO iimatrix赋值完。
+2018/08/10 21:32:19 main_v2.py[line:26] INFO execute sql: select * from booklist
+2018/08/10 21:33:13 main_v2.py[line:59] INFO bpmatrix finish。
+2018/08/10 21:33:13 main_v2.py[line:78] INFO iimatrix start:
+2018/08/10 21:33:13 main_v2.py[line:83] INFO line Done : 0
+2018/08/10 21:33:13 main_v2.py[line:83] INFO line Done : 1
+2018/08/10 21:33:13 main_v2.py[line:83] INFO line Done : 2
+2018/08/10 21:33:13 main_v2.py[line:85] INFO iimatrix赋值完。
