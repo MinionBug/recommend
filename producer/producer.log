@@ -13,3 +13,71 @@
 2018/08/10 21:33:13 main_v2.py[line:83] INFO line Done : 1
 2018/08/10 21:33:13 main_v2.py[line:83] INFO line Done : 2
 2018/08/10 21:33:13 main_v2.py[line:85] INFO iimatrix赋值完。
+2018/08/11 20:05:47 main_v2.py[line:26] INFO execute sql: select * from booklist_g
+2018/08/11 20:05:54 main_v2.py[line:59] INFO iumatrix finish。
+2018/08/11 20:05:54 main_v2.py[line:78] INFO iimatrix start:
+2018/08/11 20:05:54 main_v2.py[line:83] INFO line Done : 0
+2018/08/11 20:05:54 main_v2.py[line:83] INFO line Done : 1
+2018/08/11 20:05:54 main_v2.py[line:83] INFO line Done : 2
+2018/08/11 20:05:54 main_v2.py[line:83] INFO line Done : 3
+2018/08/11 20:05:54 main_v2.py[line:83] INFO line Done : 4
+2018/08/11 20:05:54 main_v2.py[line:83] INFO line Done : 5
+2018/08/11 20:05:54 main_v2.py[line:83] INFO line Done : 6
+2018/08/11 20:05:54 main_v2.py[line:85] INFO iimatrix赋值完。
+2018/08/11 20:05:54 main_v2.py[line:98] INFO top赋值完。
+2018/08/11 20:10:57 main_v2.py[line:27] INFO execute sql: select * from booklist_g
+2018/08/11 20:11:05 main_v2.py[line:60] INFO iumatrix finish。
+2018/08/11 20:11:05 main_v2.py[line:79] INFO iimatrix start:
+2018/08/11 20:11:05 main_v2.py[line:84] INFO line Done : 0
+2018/08/11 20:11:05 main_v2.py[line:84] INFO line Done : 1
+2018/08/11 20:11:05 main_v2.py[line:84] INFO line Done : 2
+2018/08/11 20:11:05 main_v2.py[line:84] INFO line Done : 3
+2018/08/11 20:11:05 main_v2.py[line:84] INFO line Done : 4
+2018/08/11 20:11:05 main_v2.py[line:84] INFO line Done : 5
+2018/08/11 20:11:05 main_v2.py[line:84] INFO line Done : 6
+2018/08/11 20:11:05 main_v2.py[line:86] INFO iimatrix赋值完。
+2018/08/11 20:11:05 main_v2.py[line:99] INFO top赋值完。
+2018/08/11 20:11:46 main_v2.py[line:27] INFO execute sql: select * from booklist_g
+2018/08/11 20:11:51 main_v2.py[line:60] INFO iumatrix finish。
+2018/08/11 20:11:51 main_v2.py[line:79] INFO iimatrix start:
+2018/08/11 20:11:51 main_v2.py[line:84] INFO line Done : 0
+2018/08/11 20:11:51 main_v2.py[line:84] INFO line Done : 1
+2018/08/11 20:11:51 main_v2.py[line:84] INFO line Done : 2
+2018/08/11 20:11:51 main_v2.py[line:84] INFO line Done : 3
+2018/08/11 20:11:51 main_v2.py[line:84] INFO line Done : 4
+2018/08/11 20:11:51 main_v2.py[line:84] INFO line Done : 5
+2018/08/11 20:11:51 main_v2.py[line:84] INFO line Done : 6
+2018/08/11 20:11:51 main_v2.py[line:86] INFO iimatrix赋值完。
+2018/08/11 20:11:51 main_v2.py[line:99] INFO top赋值完。
+2018/08/11 20:16:48 main_v2.py[line:27] INFO execute sql: select * from booklist_g
+2018/08/11 20:16:50 main_v2.py[line:27] INFO execute sql: select * from booklist_g
+2018/08/11 20:17:01 main_v2.py[line:60] INFO iumatrix finish。
+2018/08/11 20:17:01 main_v2.py[line:79] INFO iimatrix start:
+2018/08/11 20:17:02 main_v2.py[line:60] INFO iumatrix finish。
+2018/08/11 20:17:02 main_v2.py[line:79] INFO iimatrix start:
+2018/08/11 20:17:08 main_v2.py[line:84] INFO line Done : 0
+2018/08/11 20:17:08 main_v2.py[line:84] INFO line Done : 0
+2018/08/11 20:17:15 main_v2.py[line:84] INFO line Done : 1
+2018/08/11 20:17:16 main_v2.py[line:84] INFO line Done : 1
+2018/08/11 20:17:22 main_v2.py[line:84] INFO line Done : 2
+2018/08/11 20:17:25 main_v2.py[line:84] INFO line Done : 2
+2018/08/11 20:17:28 main_v2.py[line:84] INFO line Done : 3
+2018/08/11 20:17:33 main_v2.py[line:84] INFO line Done : 3
+2018/08/11 20:17:35 main_v2.py[line:84] INFO line Done : 4
+2018/08/11 20:17:40 main_v2.py[line:84] INFO line Done : 4
+2018/08/11 20:17:41 main_v2.py[line:84] INFO line Done : 5
+2018/08/11 20:17:47 main_v2.py[line:84] INFO line Done : 6
+2018/08/11 20:17:47 main_v2.py[line:84] INFO line Done : 5
+2018/08/11 20:17:53 main_v2.py[line:84] INFO line Done : 7
+2018/08/11 20:17:55 main_v2.py[line:84] INFO line Done : 6
+2018/08/11 20:17:59 main_v2.py[line:84] INFO line Done : 8
+2018/08/11 20:18:02 main_v2.py[line:84] INFO line Done : 7
+2018/08/11 20:18:05 main_v2.py[line:84] INFO line Done : 9
+2018/08/11 20:18:10 main_v2.py[line:84] INFO line Done : 8
+2018/08/11 20:18:18 main_v2.py[line:84] INFO line Done : 9
+2018/08/11 20:18:25 main_v2.py[line:84] INFO line Done : 10
+2018/08/11 20:18:32 main_v2.py[line:84] INFO line Done : 11
+2018/08/11 20:18:39 main_v2.py[line:84] INFO line Done : 12
+2018/08/11 20:18:46 main_v2.py[line:84] INFO line Done : 13
+2018/08/11 20:18:53 main_v2.py[line:84] INFO line Done : 14
+2018/08/11 20:19:00 main_v2.py[line:84] INFO line Done : 15

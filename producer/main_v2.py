@@ -7,6 +7,11 @@ import logging
 #配置文件的保存
 #np.zeros是否能用空间更小的方式保存。
 #将row、line转化为np文件
+#下面还没用上
+database = ''
+intable = 'booklist_g'
+outtable = 'toprelate_saowen'
+minrefered= 5
 
 class Recommend2():
     def __init__(self,mini_refered,topN=5):
@@ -24,7 +29,7 @@ class Recommend2():
 
     def load_from_db(self):
         #数据库
-        self.data = self.mysql_connector('select * from booklist')
+        self.data = self.mysql_connector('select * from %s' %intable)
         #计算user\items,计算次数
         items_with_count = {}
         for x in self.data:
@@ -52,7 +57,7 @@ class Recommend2():
                 r = self.items.index(item)  # 定位行,book,要变成数字
                 l = self.users.index(user)  # !!!如果有的话 定位列,书单
                 self.iumatrix[r][l] = x[2]
-        logger.info('bpmatrix finish。')
+        logger.info('iumatrix finish。')
 
     def cos(self,vector1, vector2):
         #这里打分未经过修正
@@ -82,20 +87,27 @@ class Recommend2():
 
     def find_top_related_item(self):
         #每本书,比较,获得其中最大的item。
-        for i in range(len(self.items)):
-            topitems = []
+        all_topitems = []
+        for i in range(len(self.items)): #对每一个item进行循环
+            topitems = [self.items[i]] #数据库里第一行是自己,然后是top1,2,3,4,5
             items_with_score = zip(self.iimatrix[i], self.items)
             top_item_with_socre = sorted(items_with_score, reverse=True)[:self.topN]  # [(99,11),(90,2),...]
             for topitem in top_item_with_socre:
                 topitems.append(topitem[1])
-            self.save(self.items[i],topitems)
+            all_topitems.append(topitems)
+        self.save(all_topitems)
         logger.info('top赋值完。')
             #进一步保存
 
-    def save(self,*items):
-        t0,[t1, t2, t3, t4, t5] = items
-        cursor.execute('insert into toprelate2(bookid,top1,top2,top3,top4,top5) values(%s,%s,%s,%s,%s,%s)',
-                       [t0, t1, t2, t3, t4, t5])
+    def save(self,items):
+        #t0,[t1, t2, t3, t4, t5] = items
+        #这里不知道怎么输入这个table名
+        #cursor.execute('insert into toprelate_saowen(bookid,top1,top2,top3,top4,top5) values(%s,%s,%s,%s,%s,%s)',
+                      # [t0, t1, t2, t3, t4, t5])
+        sql =  'INSERT INTO toprelate_saowen VALUES(%s,%s,%s,%s,%s,%s)'
+        cursor.executemany(sql,items)
+        conn.commit()
+        print ('全部保存')
 
     def main(self):
         self.load_from_db()
@@ -110,7 +122,7 @@ logger = logging.getLogger(__name__)
 conn = mysql.connector.connect(user='root', password='password', database='Recommend')
 cursor = conn.cursor()
 
-r = Recommend2(9)
+r = Recommend2(mini_refered=minrefered)
 r.main()
 
 cursor.close()
