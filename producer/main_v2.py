@@ -9,9 +9,9 @@ import logging
 #将row、line转化为np文件
 #下面还没用上
 database = ''
-intable = 'booklist_g'
-outtable = 'toprelate_saowen'
-minrefered= 5
+intable = 'booklist_yousuu'
+outtable = 'toprelate_yousuu'
+minrefered= 9
 
 class Recommend2():
     def __init__(self,mini_refered,topN=5):
@@ -104,7 +104,7 @@ class Recommend2():
         #这里不知道怎么输入这个table名
         #cursor.execute('insert into toprelate_saowen(bookid,top1,top2,top3,top4,top5) values(%s,%s,%s,%s,%s,%s)',
                       # [t0, t1, t2, t3, t4, t5])
-        sql =  'INSERT INTO toprelate_saowen VALUES(%s,%s,%s,%s,%s,%s)'
+        sql =  'INSERT INTO toprelate_yousuu VALUES(%s,%s,%s,%s,%s,%s)'
         cursor.executemany(sql,items)
         conn.commit()
         print ('全部保存')
