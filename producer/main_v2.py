@@ -12,8 +12,11 @@ database = ''
 intable = 'booklist_yousuu'
 outtable = 'toprelate_yousuu'
 minrefered= 9
+db_user = 'root'
+db_password = 'password'
+db_database = 'Recommend'
 
-class Recommend2():
+class Recommend():
     def __init__(self,mini_refered,topN=5):
         self.users = []
         self.items = []
@@ -22,9 +25,11 @@ class Recommend2():
 
     def mysql_connector(self, sql):
         # 'select * from %s' %table
+        cursor = conn.cursor()
         cursor.execute(sql)
         result = cursor.fetchall()
         logger.info('execute sql: %s' % sql)
+        cursor.close()
         return result
 
     def load_from_db(self):
@@ -95,6 +100,7 @@ class Recommend2():
             for topitem in top_item_with_socre:
                 topitems.append(topitem[1])
             all_topitems.append(topitems)
+            logger.info(topitems)
         self.save(all_topitems)
         logger.info('top赋值完。')
             #进一步保存
@@ -104,9 +110,11 @@ class Recommend2():
         #这里不知道怎么输入这个table名
         #cursor.execute('insert into toprelate_saowen(bookid,top1,top2,top3,top4,top5) values(%s,%s,%s,%s,%s,%s)',
                       # [t0, t1, t2, t3, t4, t5])
-        sql =  'INSERT INTO toprelate_yousuu VALUES(%s,%s,%s,%s,%s,%s)'
+        sql =  'INSERT INTO '+ outtable + ' VALUES(%s,%s,%s,%s,%s,%s)'
+        cursor = conn.cursor()
         cursor.executemany(sql,items)
         conn.commit()
+        cursor.close()
         print ('全部保存')
 
     def main(self):
@@ -119,13 +127,12 @@ class Recommend2():
 
 logging.basicConfig(filename='producer.log', level=logging.INFO, filemode='a', format='%(asctime)s %(filename)s[line:%(lineno)d] %(levelname)s %(message)s', datefmt='%Y/%m/%d %H:%M:%S')
 logger = logging.getLogger(__name__)
-conn = mysql.connector.connect(user='root', password='password', database='Recommend')
-cursor = conn.cursor()
+conn = mysql.connector.connect(user=db_user, password=db_password, database=db_database)
 
-r = Recommend2(mini_refered=minrefered)
+
+r = Recommend(mini_refered=minrefered)
 r.main()
 
-cursor.close()
 conn.close()
 
 
