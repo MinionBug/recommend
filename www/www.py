@@ -48,10 +48,12 @@ def recommend(title):
     app.logger.info('用户查询:%s' % title)
     book = inquire_by_titles(title) #得到[bookid,title,author,1,2,3,4,5]
     if book:
+        app.logger.info('%s找到' % title)
         tops = [book.top1,book.top2,book.top3,book.top4,book.top5]
         tops_info = inquire_by_titles(tops)
         return render_template('book.html', tops=tops_info)
     else:
+        app.logger.info('%s没找到' % title)
         return render_template('not_find.html',info = '本书未收录')
 
 
