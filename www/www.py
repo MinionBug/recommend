@@ -5,34 +5,27 @@ from sqlalchemy.orm import sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
 import config_default
 
-#每次本地环境销毁的时候,断开数据库。
 
+#1.两个数据库合二为一
+#2. 增加模糊查询like
+#3.自制线程池
+#4.模板的优化
 
-def salt(bookid):
-    return str(int(bookid)*2+15)
-
-def un_salt(bookid):
-    return int((int(bookid)-15)/2)
 
 # 创建对象基类
 Base = declarative_base()
 class Book(Base):
     # 表的名字:
-    __tablename__ = 'books'
+    __tablename__ = 'recommend'
     # 表的结构:
-    id = Column(String(20), primary_key=True)
+    bookid = Column(String(20), primary_key=True)
     title = Column(String(40))
     author = Column(String(40))
-
-class TopRelate(Base):
-    __tablename__ = 'toprelate'
-    bookid = Column(String(20), primary_key=True)
-    top1 = Column(String(20))
-    top2 = Column(String(20))
-    top3 = Column(String(20))
-    top4 = Column(String(20))
-    top5 = Column(String(20))
-
+    top1 = Column(String(40))
+    top2 = Column(String(40))
+    top3 = Column(String(40))
+    top4 = Column(String(40))
+    top5 = Column(String(40))
 
 app = Flask(__name__)
 @app.route('/',methods = ['GET'])
@@ -42,44 +35,41 @@ def index():
 
 @app.route('/',methods = ['POST'])
 def submit():
-        bookname = request.form['bookname'].strip()
-        if bookname:
-            app.logger.info('用户查询 %s' % bookname)
-            session = DBSession()
-            inquiry_book = session.query(Book).filter(Book.title == bookname).first()
-            session.close()
-            if inquiry_book:
-                bookid = inquiry_book.id
-                salt_bookid = salt(bookid)  # 这里对bookid进行加密
-                return redirect(url_for('recommend', salt_bookid=salt_bookid))
-            else:
-                app.logger.info('从数据库没找到 %s' % bookname)
-                return render_template('not_find.html',info = '本书未收录。'), 404
+        title = request.form['bookname'].strip()
+        if title:
+            return redirect(url_for('recommend', title=title))
         else:
             return render_template('not_find.html',info = '输入不能为空。'), 404
 
 
-@app.route('/recommend/<int:salt_bookid>', methods = ['GET'])
+@app.route('/recommend/<title>', methods = ['GET'])
 #可以用 <converter:variable_name> 指定一个可选的转换器。
-def recommend(salt_bookid):
-    bookid = un_salt(salt_bookid)
-    app.logger.info('查询 %s' % bookid)
-    session = DBSession()
-    top_info = session.query(TopRelate).filter(TopRelate.bookid == bookid).first()
-    if top_info:
-        app.logger.info('找到推荐')
-        top_ids = [top_info.top1,top_info.top2,top_info.top3,top_info.top4,top_info.top5]
-        #将各个书的各个属性,加入列表当中
-        topbooks = []
-        for top_id in top_ids:
-            t = session.query(Book).filter(Book.id == top_id).first()
-            topbooks.append([salt(t.id),t.title,t.author])
-        session.close()
-        return render_template('book.html', tops=topbooks)
+def recommend(title):
+    app.logger.info('用户查询:%s' % title)
+    book = inquire_by_titles(title) #得到[bookid,title,author,1,2,3,4,5]
+    if book:
+        tops = [book.top1,book.top2,book.top3,book.top4,book.top5]
+        tops_info = inquire_by_titles(tops)
+        return render_template('book.html', tops=tops_info)
     else:
-        app.logger.info('未找到推荐')
-        session.close()
         return render_template('not_find.html',info = '本书未收录')
+
+
+
+def inquire_by_titles(titles):
+    session = DBSession()
+    result = []
+    if isinstance(titles,list):
+        for title in titles:
+            book = session.query(Book).filter(Book.title == title).first()
+            result.append(book)
+        session.close()
+        return result
+    else:
+        book = session.query(Book).filter(Book.title == titles).first()
+        session.close()
+        return book
+
 
 
 if __name__ == '__main__':
@@ -90,7 +80,7 @@ if __name__ == '__main__':
     logger = logging.getLogger(__name__)
 
     # 初始化数据库连接
-    engine = create_engine(configs['db'], pool_recycle=3600)
+    engine = create_engine(configs['db'], pool_recycle=7200)
     DBSession = sessionmaker(bind=engine)
     #启动服务器
     app.logger.info('Start the server!!!!!')

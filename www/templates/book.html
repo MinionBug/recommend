@@ -9,8 +9,8 @@
         <table width="600" align="center">
             {% for top in tops %}
             <tr align="center">
-                <td><a href="/recommend/{{top[0]}}">{{top[1]}}</a></td>
-                <td>作者:{{top[2]}}</td>
+                <td><a href="/recommend/{{top.title}}">{{top.title}}</a></td>
+                <td>作者:{{top.author}}</td>
             </tr>
              {% endfor %}
         </table>
