@@ -1,0 +1,169 @@
+2018/09/09 14:55:01 www.py[line:88] INFO Start the server!!!!!
+2018/09/09 14:55:01 _internal.py[line:88] INFO  * Running on http://0.0.0.0:5000/ (Press CTRL+C to quit)
+2018/09/09 14:55:01 _internal.py[line:88] INFO  * Restarting with stat
+2018/09/09 14:55:03 www.py[line:88] INFO Start the server!!!!!
+2018/09/09 14:55:03 _internal.py[line:88] WARNING  * Debugger is active!
+2018/09/09 14:55:03 _internal.py[line:88] INFO  * Debugger PIN: 292-484-887
+2018/09/09 14:55:13 _internal.py[line:88] INFO 127.0.0.1 - - [09/Sep/2018 14:55:13] "GET / HTTP/1.1" 200 -
+2018/09/09 14:55:14 _internal.py[line:88] INFO 127.0.0.1 - - [09/Sep/2018 14:55:14] "GET /apple-touch-icon-precomposed.png HTTP/1.1" 404 -
+2018/09/09 14:55:14 _internal.py[line:88] INFO 127.0.0.1 - - [09/Sep/2018 14:55:14] "GET /apple-touch-icon.png HTTP/1.1" 404 -
+2018/09/09 14:55:30 _internal.py[line:88] INFO 127.0.0.1 - - [09/Sep/2018 14:55:30] "POST / HTTP/1.1" 302 -
+2018/09/09 14:55:30 www.py[line:48] INFO 用户查询:学霸的黑科技系统
+2018/09/09 14:55:30 www.py[line:51] INFO 学霸的黑科技系统找到
+2018/09/09 14:55:30 _internal.py[line:88] INFO 127.0.0.1 - - [09/Sep/2018 14:55:30] "GET /recommend/%E5%AD%A6%E9%9C%B8%E7%9A%84%E9%BB%91%E7%A7%91%E6%8A%80%E7%B3%BB%E7%BB%9F HTTP/1.1" 200 -
+2018/09/09 14:55:30 _internal.py[line:88] INFO 127.0.0.1 - - [09/Sep/2018 14:55:30] "GET /favicon.ico HTTP/1.1" 404 -
+2018/09/09 15:01:25 _internal.py[line:88] INFO 127.0.0.1 - - [09/Sep/2018 15:01:25] "GET / HTTP/1.1" 200 -
+2018/09/10 12:13:02 www.py[line:104] INFO Start the server!!!!!
+2018/09/10 12:13:02 _internal.py[line:88] INFO  * Running on http://0.0.0.0:5000/ (Press CTRL+C to quit)
+2018/09/10 12:13:02 _internal.py[line:88] INFO  * Restarting with stat
+2018/09/10 12:13:02 www.py[line:104] INFO Start the server!!!!!
+2018/09/10 12:13:02 _internal.py[line:88] WARNING  * Debugger is active!
+2018/09/10 12:13:02 _internal.py[line:88] INFO  * Debugger PIN: 292-484-887
+2018/09/10 12:13:11 _internal.py[line:88] INFO 127.0.0.1 - - [10/Sep/2018 12:13:11] "GET / HTTP/1.1" 200 -
+2018/09/10 12:13:14 _internal.py[line:88] INFO 127.0.0.1 - - [10/Sep/2018 12:13:14] "POST / HTTP/1.1" 302 -
+2018/09/10 12:13:14 www.py[line:48] INFO 用户查询:术士
+2018/09/10 12:13:14 www.py[line:55] INFO 术士没找到
+2018/09/10 12:13:15 _internal.py[line:88] INFO 127.0.0.1 - - [10/Sep/2018 12:13:15] "GET /recommend/%E6%9C%AF%E5%A3%AB HTTP/1.1" 500 -
+2018/09/10 12:13:15 _internal.py[line:88] INFO 127.0.0.1 - - [10/Sep/2018 12:13:15] "GET /recommend/%E6%9C%AF%E5%A3%AB?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1" 200 -
+2018/09/10 12:13:15 _internal.py[line:88] INFO 127.0.0.1 - - [10/Sep/2018 12:13:15] "GET /recommend/%E6%9C%AF%E5%A3%AB?__debugger__=yes&cmd=resource&f=jquery.js HTTP/1.1" 200 -
+2018/09/10 12:13:15 _internal.py[line:88] INFO 127.0.0.1 - - [10/Sep/2018 12:13:15] "GET /recommend/%E6%9C%AF%E5%A3%AB?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1" 200 -
+2018/09/10 12:13:15 _internal.py[line:88] INFO 127.0.0.1 - - [10/Sep/2018 12:13:15] "GET /recommend/%E6%9C%AF%E5%A3%AB?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1" 200 -
+2018/09/10 12:13:15 _internal.py[line:88] INFO 127.0.0.1 - - [10/Sep/2018 12:13:15] "GET /recommend/%E6%9C%AF%E5%A3%AB?__debugger__=yes&cmd=resource&f=ubuntu.ttf HTTP/1.1" 200 -
+2018/09/10 12:13:15 _internal.py[line:88] INFO 127.0.0.1 - - [10/Sep/2018 12:13:15] "GET /recommend/%E6%9C%AF%E5%A3%AB?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1" 200 -
+2018/09/10 12:15:34 _internal.py[line:88] INFO  * Detected change in '/Users/Fish/PycharmProjects/Programming Project/tuijian/www/www.py', reloading
+2018/09/10 12:15:34 _internal.py[line:88] INFO  * Restarting with stat
+2018/09/10 12:17:47 www.py[line:104] INFO Start the server!!!!!
+2018/09/10 12:17:47 _internal.py[line:88] INFO  * Running on http://0.0.0.0:5000/ (Press CTRL+C to quit)
+2018/09/10 12:17:47 _internal.py[line:88] INFO  * Restarting with stat
+2018/09/10 12:17:48 www.py[line:104] INFO Start the server!!!!!
+2018/09/10 12:17:48 _internal.py[line:88] WARNING  * Debugger is active!
+2018/09/10 12:17:48 _internal.py[line:88] INFO  * Debugger PIN: 292-484-887
+2018/09/10 12:17:54 _internal.py[line:88] INFO 127.0.0.1 - - [10/Sep/2018 12:17:54] "GET / HTTP/1.1" 200 -
+2018/09/10 12:17:58 _internal.py[line:88] INFO 127.0.0.1 - - [10/Sep/2018 12:17:58] "POST / HTTP/1.1" 302 -
+2018/09/10 12:17:58 www.py[line:48] INFO 用户查询:紫川
+2018/09/10 12:17:58 _internal.py[line:88] INFO 127.0.0.1 - - [10/Sep/2018 12:17:58] "GET /recommend/%E7%B4%AB%E5%B7%9D HTTP/1.1" 200 -
+2018/09/10 12:17:58 _internal.py[line:88] INFO 127.0.0.1 - - [10/Sep/2018 12:17:58] "GET /favicon.ico HTTP/1.1" 404 -
+2018/09/10 12:18:00 _internal.py[line:88] INFO 127.0.0.1 - - [10/Sep/2018 12:18:00] "GET / HTTP/1.1" 200 -
+2018/09/10 12:18:02 _internal.py[line:88] INFO 127.0.0.1 - - [10/Sep/2018 12:18:02] "POST / HTTP/1.1" 302 -
+2018/09/10 12:18:02 www.py[line:48] INFO 用户查询:佣兵
+2018/09/10 12:18:02 www.py[line:55] INFO 佣兵没找到
+2018/09/10 12:18:02 _internal.py[line:88] INFO 127.0.0.1 - - [10/Sep/2018 12:18:02] "GET /recommend/%E4%BD%A3%E5%85%B5 HTTP/1.1" 500 -
+2018/09/10 12:18:02 _internal.py[line:88] INFO 127.0.0.1 - - [10/Sep/2018 12:18:02] "GET /recommend/%E4%BD%A3%E5%85%B5?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1" 200 -
+2018/09/10 12:18:02 _internal.py[line:88] INFO 127.0.0.1 - - [10/Sep/2018 12:18:02] "GET /recommend/%E4%BD%A3%E5%85%B5?__debugger__=yes&cmd=resource&f=jquery.js HTTP/1.1" 200 -
+2018/09/10 12:18:02 _internal.py[line:88] INFO 127.0.0.1 - - [10/Sep/2018 12:18:02] "GET /recommend/%E4%BD%A3%E5%85%B5?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1" 200 -
+2018/09/10 12:18:03 _internal.py[line:88] INFO 127.0.0.1 - - [10/Sep/2018 12:18:03] "GET /recommend/%E4%BD%A3%E5%85%B5?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1" 200 -
+2018/09/10 12:18:03 _internal.py[line:88] INFO 127.0.0.1 - - [10/Sep/2018 12:18:03] "GET /recommend/%E4%BD%A3%E5%85%B5?__debugger__=yes&cmd=resource&f=ubuntu.ttf HTTP/1.1" 200 -
+2018/09/10 12:18:03 _internal.py[line:88] INFO 127.0.0.1 - - [10/Sep/2018 12:18:03] "GET /recommend/%E4%BD%A3%E5%85%B5?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1" 200 -
+2018/09/10 12:18:40 _internal.py[line:88] INFO  * Detected change in '/Users/Fish/PycharmProjects/Programming Project/tuijian/www/www.py', reloading
+2018/09/10 12:18:40 _internal.py[line:88] INFO  * Restarting with stat
+2018/09/10 12:18:41 www.py[line:105] INFO Start the server!!!!!
+2018/09/10 12:18:41 _internal.py[line:88] WARNING  * Debugger is active!
+2018/09/10 12:18:41 _internal.py[line:88] INFO  * Debugger PIN: 292-484-887
+2018/09/10 12:18:44 _internal.py[line:88] INFO 127.0.0.1 - - [10/Sep/2018 12:18:44] "GET / HTTP/1.1" 200 -
+2018/09/10 12:18:48 _internal.py[line:88] INFO 127.0.0.1 - - [10/Sep/2018 12:18:48] "POST / HTTP/1.1" 302 -
+2018/09/10 12:18:48 www.py[line:48] INFO 用户查询:佣兵
+2018/09/10 12:18:48 www.py[line:55] INFO 佣兵没找到
+2018/09/10 12:18:48 _internal.py[line:88] INFO 127.0.0.1 - - [10/Sep/2018 12:18:48] "GET /recommend/%E4%BD%A3%E5%85%B5 HTTP/1.1" 500 -
+2018/09/10 12:18:48 _internal.py[line:88] INFO 127.0.0.1 - - [10/Sep/2018 12:18:48] "GET /recommend/%E4%BD%A3%E5%85%B5?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1" 200 -
+2018/09/10 12:18:48 _internal.py[line:88] INFO 127.0.0.1 - - [10/Sep/2018 12:18:48] "GET /recommend/%E4%BD%A3%E5%85%B5?__debugger__=yes&cmd=resource&f=jquery.js HTTP/1.1" 200 -
+2018/09/10 12:18:48 _internal.py[line:88] INFO 127.0.0.1 - - [10/Sep/2018 12:18:48] "GET /recommend/%E4%BD%A3%E5%85%B5?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1" 200 -
+2018/09/10 12:18:48 _internal.py[line:88] INFO 127.0.0.1 - - [10/Sep/2018 12:18:48] "GET /recommend/%E4%BD%A3%E5%85%B5?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1" 200 -
+2018/09/10 12:18:49 _internal.py[line:88] INFO 127.0.0.1 - - [10/Sep/2018 12:18:49] "GET /recommend/%E4%BD%A3%E5%85%B5?__debugger__=yes&cmd=resource&f=ubuntu.ttf HTTP/1.1" 200 -
+2018/09/10 12:19:12 _internal.py[line:88] INFO  * Detected change in '/Users/Fish/PycharmProjects/Programming Project/tuijian/www/www.py', reloading
+2018/09/10 12:19:12 _internal.py[line:88] INFO  * Restarting with stat
+2018/09/10 12:19:13 www.py[line:105] INFO Start the server!!!!!
+2018/09/10 12:19:13 _internal.py[line:88] WARNING  * Debugger is active!
+2018/09/10 12:19:13 _internal.py[line:88] INFO  * Debugger PIN: 292-484-887
+2018/09/10 12:20:04 _internal.py[line:88] INFO  * Detected change in '/Users/Fish/PycharmProjects/Programming Project/tuijian/www/www.py', reloading
+2018/09/10 12:20:04 _internal.py[line:88] INFO  * Restarting with stat
+2018/09/10 12:20:05 www.py[line:105] INFO Start the server!!!!!
+2018/09/10 12:20:05 _internal.py[line:88] WARNING  * Debugger is active!
+2018/09/10 12:20:05 _internal.py[line:88] INFO  * Debugger PIN: 292-484-887
+2018/09/10 12:20:16 _internal.py[line:88] INFO 127.0.0.1 - - [10/Sep/2018 12:20:16] "GET /recommend/%E4%BD%A3%E5%85%B5?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1" 200 -
+2018/09/10 12:20:16 _internal.py[line:88] INFO 127.0.0.1 - - [10/Sep/2018 12:20:16] "GET /recommend/%E4%BD%A3%E5%85%B5?__debugger__=yes&cmd=resource&f=jquery.js HTTP/1.1" 200 -
+2018/09/10 12:20:16 _internal.py[line:88] INFO 127.0.0.1 - - [10/Sep/2018 12:20:16] "GET /recommend/%E4%BD%A3%E5%85%B5?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1" 200 -
+2018/09/10 12:20:16 _internal.py[line:88] INFO 127.0.0.1 - - [10/Sep/2018 12:20:16] "GET /recommend/%E4%BD%A3%E5%85%B5?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1" 200 -
+2018/09/10 12:20:16 _internal.py[line:88] INFO 127.0.0.1 - - [10/Sep/2018 12:20:16] "GET /recommend/%E4%BD%A3%E5%85%B5?__debugger__=yes&cmd=resource&f=ubuntu.ttf HTTP/1.1" 200 -
+2018/09/10 12:20:16 _internal.py[line:88] INFO 127.0.0.1 - - [10/Sep/2018 12:20:16] "GET / HTTP/1.1" 200 -
+2018/09/10 12:20:17 _internal.py[line:88] INFO 127.0.0.1 - - [10/Sep/2018 12:20:17] "GET / HTTP/1.1" 200 -
+2018/09/10 12:20:17 _internal.py[line:88] INFO 127.0.0.1 - - [10/Sep/2018 12:20:17] "GET /recommend/%E4%BD%A3%E5%85%B5?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1" 200 -
+2018/09/10 12:20:17 _internal.py[line:88] INFO 127.0.0.1 - - [10/Sep/2018 12:20:17] "GET /recommend/%E4%BD%A3%E5%85%B5?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1" 200 -
+2018/09/10 12:20:17 _internal.py[line:88] INFO 127.0.0.1 - - [10/Sep/2018 12:20:17] "GET /recommend/%E4%BD%A3%E5%85%B5?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1" 200 -
+2018/09/10 12:20:17 _internal.py[line:88] INFO 127.0.0.1 - - [10/Sep/2018 12:20:17] "GET /recommend/%E4%BD%A3%E5%85%B5?__debugger__=yes&cmd=resource&f=jquery.js HTTP/1.1" 200 -
+2018/09/10 12:20:17 _internal.py[line:88] INFO 127.0.0.1 - - [10/Sep/2018 12:20:17] "GET /recommend/%E4%BD%A3%E5%85%B5?__debugger__=yes&cmd=resource&f=ubuntu.ttf HTTP/1.1" 200 -
+2018/09/10 12:20:24 _internal.py[line:88] INFO 127.0.0.1 - - [10/Sep/2018 12:20:24] "POST / HTTP/1.1" 302 -
+2018/09/10 12:20:24 www.py[line:48] INFO 用户查询:佣兵
+2018/09/10 12:20:24 www.py[line:55] INFO 佣兵没找到
+2018/09/10 12:20:24 _internal.py[line:88] INFO 127.0.0.1 - - [10/Sep/2018 12:20:24] "GET /recommend/%E4%BD%A3%E5%85%B5 HTTP/1.1" 500 -
+2018/09/10 12:21:22 _internal.py[line:88] INFO 127.0.0.1 - - [10/Sep/2018 12:21:22] "GET / HTTP/1.1" 200 -
+2018/09/10 12:21:26 _internal.py[line:88] INFO 127.0.0.1 - - [10/Sep/2018 12:21:26] "POST / HTTP/1.1" 302 -
+2018/09/10 12:21:26 www.py[line:48] INFO 用户查询:佣兵
+2018/09/10 12:21:26 www.py[line:55] INFO 佣兵没找到
+2018/09/10 12:21:26 _internal.py[line:88] INFO 127.0.0.1 - - [10/Sep/2018 12:21:26] "GET /recommend/%E4%BD%A3%E5%85%B5 HTTP/1.1" 500 -
+2018/09/10 12:21:26 _internal.py[line:88] INFO 127.0.0.1 - - [10/Sep/2018 12:21:26] "GET /recommend/%E4%BD%A3%E5%85%B5?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1" 200 -
+2018/09/10 12:21:26 _internal.py[line:88] INFO 127.0.0.1 - - [10/Sep/2018 12:21:26] "GET /recommend/%E4%BD%A3%E5%85%B5?__debugger__=yes&cmd=resource&f=jquery.js HTTP/1.1" 200 -
+2018/09/10 12:21:26 _internal.py[line:88] INFO 127.0.0.1 - - [10/Sep/2018 12:21:26] "GET /recommend/%E4%BD%A3%E5%85%B5?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1" 200 -
+2018/09/10 12:21:26 _internal.py[line:88] INFO 127.0.0.1 - - [10/Sep/2018 12:21:26] "GET /recommend/%E4%BD%A3%E5%85%B5?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1" 200 -
+2018/09/10 12:21:26 _internal.py[line:88] INFO 127.0.0.1 - - [10/Sep/2018 12:21:26] "GET /recommend/%E4%BD%A3%E5%85%B5?__debugger__=yes&cmd=resource&f=ubuntu.ttf HTTP/1.1" 200 -
+2018/09/10 12:22:20 www.py[line:48] INFO 用户查询:佣兵
+2018/09/10 12:22:20 www.py[line:55] INFO 佣兵没找到
+2018/09/10 12:22:20 _internal.py[line:88] INFO 127.0.0.1 - - [10/Sep/2018 12:22:20] "GET /recommend/%E4%BD%A3%E5%85%B5 HTTP/1.1" 200 -
+2018/09/10 12:22:21 _internal.py[line:88] INFO 127.0.0.1 - - [10/Sep/2018 12:22:21] "GET /favicon.ico HTTP/1.1" 404 -
+2018/09/10 12:45:50 _internal.py[line:88] INFO  * Detected change in '/Users/Fish/PycharmProjects/Programming Project/tuijian/www/www.py', reloading
+2018/09/10 12:45:50 _internal.py[line:88] INFO  * Restarting with stat
+2018/09/10 12:45:51 www.py[line:105] INFO Start the server!!!!!
+2018/09/10 12:45:51 _internal.py[line:88] WARNING  * Debugger is active!
+2018/09/10 12:45:51 _internal.py[line:88] INFO  * Debugger PIN: 292-484-887
+2018/09/10 12:45:51 www.py[line:48] INFO 用户查询:佣兵
+2018/09/10 12:45:52 www.py[line:55] INFO 佣兵没找到
+2018/09/10 12:45:52 _internal.py[line:88] INFO 127.0.0.1 - - [10/Sep/2018 12:45:52] "GET /recommend/%E4%BD%A3%E5%85%B5 HTTP/1.1" 200 -
+2018/09/10 12:45:52 _internal.py[line:88] INFO 127.0.0.1 - - [10/Sep/2018 12:45:52] "GET /favicon.ico HTTP/1.1" 404 -
+2018/09/10 12:46:09 _internal.py[line:88] INFO  * Detected change in '/Users/Fish/PycharmProjects/Programming Project/tuijian/www/www.py', reloading
+2018/09/10 12:46:09 _internal.py[line:88] INFO  * Restarting with stat
+2018/09/10 12:46:09 www.py[line:105] INFO Start the server!!!!!
+2018/09/10 12:46:09 _internal.py[line:88] WARNING  * Debugger is active!
+2018/09/10 12:46:09 _internal.py[line:88] INFO  * Debugger PIN: 292-484-887
+2018/09/10 12:46:09 www.py[line:48] INFO 用户查询:佣兵
+2018/09/10 12:46:09 _internal.py[line:88] INFO 127.0.0.1 - - [10/Sep/2018 12:46:09] "GET /favicon.ico HTTP/1.1" 404 -
+2018/09/10 12:46:09 www.py[line:55] INFO 佣兵没找到
+2018/09/10 12:46:09 _internal.py[line:88] INFO 127.0.0.1 - - [10/Sep/2018 12:46:09] "GET /recommend/%E4%BD%A3%E5%85%B5 HTTP/1.1" 200 -
+2018/09/10 12:46:19 www.py[line:48] INFO 用户查询:佣兵天下
+2018/09/10 12:46:19 _internal.py[line:88] INFO 127.0.0.1 - - [10/Sep/2018 12:46:19] "GET /recommend/%E4%BD%A3%E5%85%B5%E5%A4%A9%E4%B8%8B HTTP/1.1" 200 -
+2018/09/10 12:46:19 _internal.py[line:88] INFO 127.0.0.1 - - [10/Sep/2018 12:46:19] "GET /favicon.ico HTTP/1.1" 404 -
+2018/09/10 12:46:22 www.py[line:48] INFO 用户查询:佣兵的战争
+2018/09/10 12:46:22 _internal.py[line:88] INFO 127.0.0.1 - - [10/Sep/2018 12:46:22] "GET /recommend/%E4%BD%A3%E5%85%B5%E7%9A%84%E6%88%98%E4%BA%89 HTTP/1.1" 200 -
+2018/09/10 12:46:22 _internal.py[line:88] INFO 127.0.0.1 - - [10/Sep/2018 12:46:22] "GET /favicon.ico HTTP/1.1" 404 -
+2018/09/10 12:47:25 www.py[line:48] INFO 用户查询:进击的喵特勒
+2018/09/10 12:47:25 _internal.py[line:88] INFO 127.0.0.1 - - [10/Sep/2018 12:47:25] "GET /recommend/%E8%BF%9B%E5%87%BB%E7%9A%84%E5%96%B5%E7%89%B9%E5%8B%92 HTTP/1.1" 200 -
+2018/09/10 12:47:25 _internal.py[line:88] INFO 127.0.0.1 - - [10/Sep/2018 12:47:25] "GET /favicon.ico HTTP/1.1" 404 -
+2018/09/10 12:47:27 _internal.py[line:88] INFO 127.0.0.1 - - [10/Sep/2018 12:47:27] "GET / HTTP/1.1" 200 -
+2018/09/10 12:47:29 _internal.py[line:88] INFO 127.0.0.1 - - [10/Sep/2018 12:47:29] "POST / HTTP/1.1" 302 -
+2018/09/10 12:47:29 www.py[line:48] INFO 用户查询:重生
+2018/09/10 12:47:29 _internal.py[line:88] INFO 127.0.0.1 - - [10/Sep/2018 12:47:29] "GET /recommend/%E9%87%8D%E7%94%9F HTTP/1.1" 200 -
+2018/09/10 12:47:30 _internal.py[line:88] INFO 127.0.0.1 - - [10/Sep/2018 12:47:30] "GET /favicon.ico HTTP/1.1" 404 -
+2018/09/10 12:47:32 _internal.py[line:88] INFO 127.0.0.1 - - [10/Sep/2018 12:47:32] "GET / HTTP/1.1" 200 -
+2018/09/10 12:47:35 _internal.py[line:88] INFO 127.0.0.1 - - [10/Sep/2018 12:47:35] "POST / HTTP/1.1" 302 -
+2018/09/10 12:47:36 www.py[line:48] INFO 用户查询:紫
+2018/09/10 12:47:36 www.py[line:55] INFO 紫没找到
+2018/09/10 12:47:36 _internal.py[line:88] INFO 127.0.0.1 - - [10/Sep/2018 12:47:36] "GET /recommend/%E7%B4%AB HTTP/1.1" 200 -
+2018/09/10 12:47:36 _internal.py[line:88] INFO 127.0.0.1 - - [10/Sep/2018 12:47:36] "GET /favicon.ico HTTP/1.1" 404 -
+2018/09/10 12:47:39 www.py[line:48] INFO 用户查询:紫金堂
+2018/09/10 12:47:39 _internal.py[line:88] INFO 127.0.0.1 - - [10/Sep/2018 12:47:39] "GET /recommend/%E7%B4%AB%E9%87%91%E5%A0%82 HTTP/1.1" 200 -
+2018/09/10 12:47:39 _internal.py[line:88] INFO 127.0.0.1 - - [10/Sep/2018 12:47:39] "GET /favicon.ico HTTP/1.1" 404 -
+2018/09/10 12:47:45 _internal.py[line:88] INFO 127.0.0.1 - - [10/Sep/2018 12:47:45] "POST / HTTP/1.1" 302 -
+2018/09/10 12:47:45 www.py[line:48] INFO 用户查询:术士
+2018/09/10 12:47:45 www.py[line:55] INFO 术士没找到
+2018/09/10 12:47:45 _internal.py[line:88] INFO 127.0.0.1 - - [10/Sep/2018 12:47:45] "GET /recommend/%E6%9C%AF%E5%A3%AB HTTP/1.1" 200 -
+2018/09/10 12:47:46 _internal.py[line:88] INFO 127.0.0.1 - - [10/Sep/2018 12:47:46] "GET /favicon.ico HTTP/1.1" 404 -
+2018/09/10 12:47:52 www.py[line:48] INFO 用户查询:术士的星空
+2018/09/10 12:47:52 _internal.py[line:88] INFO 127.0.0.1 - - [10/Sep/2018 12:47:52] "GET /recommend/%E6%9C%AF%E5%A3%AB%E7%9A%84%E6%98%9F%E7%A9%BA HTTP/1.1" 200 -
+2018/09/10 12:47:52 _internal.py[line:88] INFO 127.0.0.1 - - [10/Sep/2018 12:47:52] "GET /favicon.ico HTTP/1.1" 404 -
+2018/09/10 12:47:54 _internal.py[line:88] INFO 127.0.0.1 - - [10/Sep/2018 12:47:54] "GET / HTTP/1.1" 200 -
+2018/09/10 12:48:25 _internal.py[line:88] INFO  * Detected change in '/Users/Fish/PycharmProjects/Programming Project/tuijian/www/www.py', reloading
+2018/09/10 12:48:25 _internal.py[line:88] INFO  * Restarting with stat
+2018/09/10 12:48:26 www.py[line:104] INFO Start the server!!!!!
+2018/09/10 12:48:26 _internal.py[line:88] WARNING  * Debugger is active!
+2018/09/10 12:48:26 _internal.py[line:88] INFO  * Debugger PIN: 292-484-887
+2018/09/10 12:54:42 _internal.py[line:88] INFO  * Detected change in '/Users/Fish/PycharmProjects/Programming Project/tuijian/www/www.py', reloading
+2018/09/10 12:54:42 _internal.py[line:88] INFO  * Restarting with stat
+2018/09/10 12:54:43 www.py[line:104] INFO Start the server!!!!!

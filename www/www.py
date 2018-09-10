@@ -48,16 +48,16 @@ def recommend(title):
     app.logger.info('用户查询:%s' % title)
     book = inquire_by_titles(title) #得到[bookid,title,author,1,2,3,4,5]
     if book:
-        app.logger.info('%s找到' % title)
         tops = [book.top1,book.top2,book.top3,book.top4,book.top5]
         tops_info = inquire_by_titles(tops)
         return render_template('book.html', tops=tops_info)
     else:
         app.logger.info('%s没找到' % title)
-        return render_template('not_find.html',info = '本书未收录')
+        maybe_books = inquire_with_like(title) #这是一个类的集合,需要传入的是书名
+        maybe_titles = [maybe_book.title for maybe_book in maybe_books]
+        return render_template('not_find.html',info = '你查询的《'+title+'》未收录',maybe_books=maybe_titles)
 
-
-
+#这里要修改,不能查询多个。
 def inquire_by_titles(titles):
     session = DBSession()
     result = []
@@ -72,6 +72,22 @@ def inquire_by_titles(titles):
         session.close()
         return book
 
+
+def inquire_with_like(titles):
+    session = DBSession()
+    result = []
+    if isinstance(titles,list):
+        for title in titles:
+            t = '%' + title + '%'
+            book = session.query(Book).filter(Book.title.like(t)).all()
+            result.append(book)
+        session.close()
+        return result
+    else:
+        t = '%'+titles+'%'
+        book = session.query(Book).filter(Book.title.like(t)).all()
+        session.close()
+        return book
 
 
 if __name__ == '__main__':
