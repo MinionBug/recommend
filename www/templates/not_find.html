@@ -10,21 +10,6 @@
         <br/>
     </div>
 
-    <div id='like_book' align="center">
-        {% if maybe_books %}
-        <p> 你想找的是否是: </p>
-        <table width="600" align="center">
-            {% for maybe_book in maybe_books%}
-            <tr align="center">
-                <td><a href="/recommend/{{maybe_book}}">{{maybe_book}}</a></td>
-            </tr>
-             {% endfor %}
-        {% endif %}
-        </table>
-
-    </div>
-
-
 
     <div align="right">
         <a href="/">返回主页</a>

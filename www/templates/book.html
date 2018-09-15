@@ -5,16 +5,34 @@
     <title>推荐书目</title>
 </head>
 <body>
-    <div id="centent">
-        <table width="600" align="center">
-            {% for top in tops %}
+    <div align="center">
+        <p>《{{me.title}}》相关推荐:   </p>
+    </div>
+    <div id="whatever">
+        <table width="500" align="center">
+            <caption>推荐书目</caption>
+            {% for top in topA %}
             <tr align="center">
-                <td><a href="/recommend/{{top.title}}">{{top.title}}</a></td>
+                <td><a href="/recommend/{{top.bookid}}">{{top.title}}</a></td>
                 <td>作者:{{top.author}}</td>
             </tr>
              {% endfor %}
         </table>
+    </div>
         <br/>
+        <br/>
+        <br/>
+        <br/>
+    <div id="whatever2">
+        <table width="500" align="center">
+            <caption>冷门推荐</caption>
+            {% for top in topB %}
+            <tr align="center">
+                <td><a href="/recommend/{{top.bookid}}">{{top.title}}</a></td>
+                <td>作者:{{top.author}}</td>
+            </tr>
+             {% endfor %}
+        </table>
     </div>
     <div align="right">
         <a href="/">返回主页</a>

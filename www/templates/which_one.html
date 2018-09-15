@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>哪一本?</title>
+</head>
+<body>
+    <div id='content' align="center">
+        <p>{{info}}</p>
+        <br/>
+    </div>
+
+    <div id='like_book' align="center">
+        <table width="600" align="center">
+            {% for book in books %}
+
+            <tr align="center">
+                <td><a href="/recommend/{{book.bookid}}">{{book.title}}</a></td>
+                <td>作者:{{book.author}}</td>
+
+            </tr>
+             {% endfor %}
+        </table>
+
+    </div>
+
+
+
+    <div align="right">
+        <a href="/">返回主页</a>
+    </div>
+</body>
+</html>

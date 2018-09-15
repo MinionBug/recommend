@@ -1,6 +1,6 @@
 from flask import Flask, request, redirect,render_template,url_for
 import logging
-from sqlalchemy import  Column,String,create_engine
+from sqlalchemy import  Column,String,Integer,create_engine
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
 import config_default
@@ -18,14 +18,25 @@ class Book(Base):
     # 表的名字:
     __tablename__ = 'recommend'
     # 表的结构:
-    bookid = Column(String(20), primary_key=True)
+    bookid = Column(Integer, primary_key=True)
     title = Column(String(40))
     author = Column(String(40))
-    top1 = Column(String(40))
-    top2 = Column(String(40))
-    top3 = Column(String(40))
-    top4 = Column(String(40))
-    top5 = Column(String(40))
+    t1 = Column(Integer)
+    t2 = Column(Integer)
+    t3 = Column(Integer)
+    t4 = Column(Integer)
+    t5 = Column(Integer)
+    t6 = Column(Integer)
+    t7 = Column(Integer)
+    t8 = Column(Integer)
+    ut1 = Column(Integer)
+    ut2 = Column(Integer)
+    ut3 = Column(Integer)
+    ut4 = Column(Integer)
+    ut5 = Column(Integer)
+    ut6 = Column(Integer)
+    ut7 = Column(Integer)
+    ut8 = Column(Integer)
 
 app = Flask(__name__)
 @app.route('/',methods = ['GET'])
@@ -36,64 +47,65 @@ def index():
 @app.route('/',methods = ['POST'])
 def submit():
         title = request.form['bookname'].strip()
-        if title:
-            return redirect(url_for('recommend', title=title))
+        if not title:
+            return render_template('not_find.html', info='输入不能为空'), 404
+        books = find_by_title(title)
+        if not books:
+            likes = find_with_like(title)
+            if likes:
+                #找到相似的
+                return render_template('which_one.html', books=likes)
+            else:
+                #没找到
+                return render_template('not_find.html',info = '你查询的《'+title+'》未收录'), 404
+        elif len(books) == 1:
+            #找到一本
+            [book] = books
+            return redirect(url_for('recommend',bookid = book.bookid))
         else:
-            return render_template('not_find.html',info = '输入不能为空。'), 404
+            #找到好几本
+            return render_template('which_one.html', books=books)
 
 
-@app.route('/recommend/<title>', methods = ['GET'])
+@app.route('/recommend/<int:bookid>', methods = ['GET'])
 #可以用 <converter:variable_name> 指定一个可选的转换器。
-def recommend(title):
-    app.logger.info('用户查询:%s' % title)
-    book = inquire_by_titles(title) #得到[bookid,title,author,1,2,3,4,5]
-    if book:
-        tops = [book.top1,book.top2,book.top3,book.top4,book.top5]
-        tops_info = inquire_by_titles(tops)
-        return render_template('book.html', tops=tops_info)
+def recommend(bookid):
+    top = find_by_id(bookid) #得到[bookid,title,author,1,2,3,4,5,6,7,8]
+    if top:
+        A_tops = [getattr(top,'t'+str(i)) for i in range(1,9)] #id的集合
+        B_tops = [getattr(top,'ut'+str(i)) for i in range(1,9)]
+        A_tops_info = [find_by_id(t) for t in A_tops] #对象的集合
+        B_tops_info = [find_by_id(t) for t in B_tops]
+        return render_template('book.html', me = top,topA=A_tops_info,topB =B_tops_info)
     else:
-        app.logger.info('%s没找到' % title)
-        maybe_books = inquire_with_like(title) #这是一个类的集合,需要传入的是书名
-        maybe_titles = [maybe_book.title for maybe_book in maybe_books]
-        return render_template('not_find.html',info = '你查询的《'+title+'》未收录',maybe_books=maybe_titles)
+        return render_template('not_find.html',info = '本书不存在')
 
 #这里要修改,不能查询多个。
-def inquire_by_titles(titles):
+def find_by_title(title):
     session = DBSession()
-    result = []
-    if isinstance(titles,list):
-        for title in titles:
-            book = session.query(Book).filter(Book.title == title).first()
-            result.append(book)
-        session.close()
-        return result
-    else:
-        book = session.query(Book).filter(Book.title == titles).first()
-        session.close()
-        return book
+    books = session.query(Book).filter(Book.title == title).all()
+    session.close()
+    return books
 
-
-def inquire_with_like(titles):
+def find_with_like(title):
     session = DBSession()
-    result = []
-    if isinstance(titles,list):
-        for title in titles:
-            t = '%' + title + '%'
-            book = session.query(Book).filter(Book.title.like(t)).all()
-            result.append(book)
-        session.close()
-        return result
-    else:
-        t = '%'+titles+'%'
-        book = session.query(Book).filter(Book.title.like(t)).all()
-        session.close()
-        return book
+    t = '%' + title + '%'
+    books = session.query(Book).filter(Book.title.like(t)).all()
+    session.close()
+    return books
+
+def find_by_id(bookid):
+    session = DBSession()
+    book = session.query(Book).filter(Book.bookid == bookid).one()
+    session.close()
+    return book
+
 
 
 if __name__ == '__main__':
     configs = config_default.configs
     #启动logger
-    logging.basicConfig(filename='myapp.log',level=logging.INFO, filemode='a', \
+    logging.basicConfig(filename='myapp.log',level=logging.WARNING, filemode='a', \
                         format=configs['log']['format'], datefmt=configs['log']['datefmt'])
     logger = logging.getLogger(__name__)
 
@@ -102,9 +114,9 @@ if __name__ == '__main__':
     DBSession = sessionmaker(bind=engine)
     #启动服务器
     app.logger.info('Start the server!!!!!')
-    app.run(host='0.0.0.0',port = 80) #port = 80,debug = True
+    app.run(host='0.0.0.0',debug = True) #port = 80,debug = True
 
 
-
+#删除多余的logger,记录错误的logger(warning)
 
 
