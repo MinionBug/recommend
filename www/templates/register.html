@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+        <style type="text/css">
+        body{
+            width:100%
+        }
+        h1{
+            text-align:center
+        }
+        .main {
+            left:40%;
+            width: 20%;
+            position:relative
+        }
+
+    </style>
+
+    <title>注册</title>
+</head>
+<body>
+        <h1>欢迎注册！</h1>
+    <div class="main">
+        <form action="/register" method="post" class="main2">
+            <div class="center">
+                <label>昵称:</label>
+                <div>
+                    <input name="name" type="text" placeholder="昵称" class="uk-width-1-1">
+                </div>
+            </div>
+            <div class="center">
+                <label>电子邮件:</label>
+                <div>
+                    <input name="email" type="text" placeholder="your-name@example.com" class="uk-width-1-1">
+                </div>
+            </div>
+            <div class="center">
+                <label class="uk-form-label">输入密码:</label>
+                <div class="uk-form-controls">
+                    <input name="password1" type="password" placeholder="输入密码" class="uk-width-1-1">
+                </div>
+            </div>
+            <div class="center">
+                <label class="uk-form-label">重复密码:</label>
+                <div class="uk-form-controls">
+                    <input name="password2" type="password" placeholder="重复密码" class="uk-width-1-1">
+                </div>
+            </div>
+            <div class="center">
+                <button type="submit"> 注册</button>
+            </div>
+        </form>
+    </div>
+
+
+</body>
+</html>

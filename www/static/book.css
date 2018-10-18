@@ -1,0 +1,139 @@
+html {
+  box-sizing: border-box;
+}
+
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
+body {
+  margin: 0;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6, p, ul {
+  margin: 0;
+  padding: 0;
+}
+a {
+  text-decoration: none;
+}
+
+.nav {
+}
+
+.nav ul {
+  list-style-type: none;
+  padding-left: 60%
+  }
+
+.nav ul li {
+      display: inline-block;
+      margin: 0 1em;
+      padding: 0.5em;
+    }
+
+.bookinfo {
+  margin: 1em 0.5em;
+  padding: 0.5em 1em;
+}
+
+.reader_feedback {
+  padding: 0 0.5em
+}
+
+.reader_feedback div {
+    float: left
+  }
+
+.reader_feedback div:not(:last-child) {
+      margin-right: 2em;
+    }
+
+.reader_feedback:after {
+    display: block;
+    content: "";
+    clear: both;
+  }
+
+.reader_feedback .add_readstats {
+  }
+
+.reader_feedback #add_rate ul li {
+        display: inline-block;
+        cursor: pointer;
+      }
+
+.reader_feedback #add_tag {
+  }
+
+.reader_feedback #add_comment {
+
+  }
+
+.comments {
+  margin: 1em 0.5em;
+}
+
+.comments > p {
+    font-size: 2em;
+  }
+
+.recommend {
+  display: flex;
+  justify-content: space-around;
+}
+
+.unlike ul li {
+}
+.like {
+}
+
+.modal {
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  z-index: 1;
+  overflow: hidden;
+  display: none;
+}
+
+.modal-dialog {
+  position: relative;
+  max-width: 600px;
+  border: 1px solid;
+  margin: 30px auto;
+}
+
+.modal-content {
+  position: relative;
+}
+
+.modal-header {
+  padding: 0.5em 1em;
+}
+
+.modal-header:after {
+    display: block;
+    content: "";
+    clear: both;
+  }
+
+.modal-header p {
+    float: left;
+  }
+
+.modal-header #modal-close {
+    float: right;
+  }
+.modal-body {
+  padding: 1em;
+}
+.modal-show {
+  display: block;
+}
+
+
+/*# sourceMappingURL=book.css.map*/

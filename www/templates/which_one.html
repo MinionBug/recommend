@@ -13,9 +13,8 @@
     <div id='like_book' align="center">
         <table width="600" align="center">
             {% for book in books %}
-
             <tr align="center">
-                <td><a href="/recommend/{{book.bookid}}">{{book.title}}</a></td>
+                <td><a href="/book/{{book.bid}}">{{book.title}}</a></td>
                 <td>作者:{{book.author}}</td>
 
             </tr>
