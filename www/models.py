@@ -1,5 +1,6 @@
-from sqlalchemy import  Column,String,Integer,create_engine,DateTime,Text,Float
+from sqlalchemy import  Column,String,Integer,create_engine,DateTime,Text,Float,ForeignKey
 from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy.orm import relationship,backref
 import time,uuid
 
 def next_id():
@@ -18,31 +19,34 @@ class Book(Base): #要增加更多关于来源等信息
     finished = Column(String(40))
     link = Column(String(60))
 
+
 class User(Base):
     __tablename__ = 'user'
     uid = Column(Integer,primary_key=True)
     email = Column(String(50))
     passwd = Column(String(50))
     name = Column(String(50))
-    created_at = Column(Float(16,6),default = time.time())  #这里应该是时间
+    created_at = Column(Float(16,6),default = time.time)  #这里应该是时间
 
 class UserBook(Base):
     __tablename__ = 'userbook'
-    cid = Column(String(50),primary_key=True,default = next_id)
+    cid = Column(Integer,primary_key=True)
     uid = Column(Integer)
     bid = Column(Integer)
-    readed = Column(String(10))
+    readed = Column(Integer)
     star = Column(Integer)
     comment = Column(Text)
-    created_at = Column(Float(16,6),default = time.time) #这里应该是时间
+    created_at = Column(Float(16,6))
+
 
 class Tag(Base):
     __tablename__ = 'tag'
-    tid = Column(String(50),primary_key=True,default = next_id)
-    uid = Column(Integer)
+    tid = Column(Integer,primary_key=True)
     bid = Column(Integer)
+    uid = Column(Integer)
     tag = Column (String(30)) #汉字乘以3,10个汉字以内
     created_at = Column(Float(16,6),default = time.time)  # 这里应该是时间
+    weight = Column(Integer)
 
 class BookRecommend(Base):
     __tablename__ = 'bookrecommend'
@@ -65,6 +69,7 @@ class BookRecommend(Base):
     ut6 = Column(Integer)
     ut7 = Column(Integer)
     ut8 = Column(Integer)
+
 
 class UserRecommend(Base):
     __tablename__ = 'userrecommend'

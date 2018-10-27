@@ -1,167 +1,252 @@
 from flask import Flask, request, redirect,render_template,url_for,make_response,session,flash
 import logging
-from sqlalchemy import  Column,String,Integer,create_engine,DateTime,Text
+from sqlalchemy import create_engine,and_
 from sqlalchemy.orm import sessionmaker
-from sqlalchemy.ext.declarative import declarative_base
 import config_default
 import hashlib
-from models import Book,User,UserBook,Tag,BookRecommend,UserRecommend
-from datetime import datetime
+from models import *
 import time
+from flask import jsonify
+import json
+from flask_cors import CORS
 
 
-_COOKIE_KEY = 'whatever'
+#_COOKIE_KEY = 'whatever'
 
 app = Flask(__name__)
 app.secret_key =config_default.configs['secret_key']
+CORS(app, resources=r'/*',supports_credentials = True)
 
 
-@app.route('/',methods = ['GET','POST'])
-def index():
-    #主页
-    if request.method =='POST':
-        title = request.form['bookname'].strip()
-        if not title:
-            return render_template('not_find.html', info='输入不能为空'), 404
-        s = DBSession()
-        books = s.query(Book).filter(Book.title == title).all()
-        if len(books) == 1:
-            #找到一本
-            [book] = books
-            s.close()
-            return redirect(url_for('book',bookid = book.bid))
-        elif len(books)>1:
-            s.close()
-            return render_template('which_one.html', books=books)
-        else:
-            t = '%' + title + '%'
-            likes = s.query(Book).filter(Book.title.like(t)).all()
-            s.close()
-            if likes:
-                #找到相似的
-                return render_template('which_one.html', books=likes)
-            else:
-                #没找到
-                return render_template('not_find.html',info = '你查询的《'+title+'》未收录')
+@app.route('/search',methods = ['POST'])
+def search():
+    data = json.loads(request.get_data().decode("utf-8"))
+    title = data['title']
+    if not title:
+        return jsonify({'error':'输入为空'})
+    s = DBSession()
+    t = '%' + title + '%'
+    books = s.query(Book).filter(Book.title.like(t)).all()
+    if books:
+        books = [{'bid':book.bid,'title':book.title,'author':book.author} for book in books]
+        return jsonify({'books':books})
     else:
-        user = check_login(session)
-        log_name = user.name if user else None
-        return render_template('index.html',log_name = log_name)
+        return jsonify({'error':'本书暂未收录'})
+
 
 @app.route('/book/<int:bookid>')
 def book(bookid):
-    user = check_login(session)
-    # 打开书页
     s = DBSession()
-    # 先确认一次是否有这本书
-    log_name = user.name if user else None
+    ###
     book = s.query(Book).filter(Book.bid == bookid).first()
-    if book:
-        recommend = s.query(BookRecommend).filter(BookRecommend.bid == bookid).first()
-        tops_id = [getattr(recommend, 't' + str(i)) for i in range(1, 9)]  # id的集合
-        utops_id = [getattr(recommend, 'ut' + str(i)) for i in range(1, 9)]
-        tops = [s.query(Book).filter(Book.bid == t).first() for t in tops_id]  # 对象的集合
-        utops = [s.query(Book).filter(Book.bid == t1).first() for t1 in utops_id]
-        comments = s.query(UserBook).filter(UserBook.bid == bookid).all()
-        t = s.query(Tag).filter(Tag.bid == bookid).all()
-        tags_with_count = handle_tag(t)
-        s.close()
-        return render_template('book.html', book=book, tops=tops, utops=utops, comments=comments, tags=tags_with_count,
-                               log_name=log_name)
-    else:
-        return render_template('not_find.html', info='本书不存在')
+    if not book:
+        return jsonify({'error':'本书不存在'})
+    book_info = {'bid':bookid,'title':book.title,'author':book.author,'words':book.words,'finished':book.finished,'link':book.link}
+    #recommend
+    recommend = s.query(BookRecommend).filter(BookRecommend.bid == bookid).first()
+    tops_id = [getattr(recommend, 't' + str(i)) for i in range(1, 9)]  # id的集合
+    utops_id = [getattr(recommend, 'ut' + str(i)) for i in range(1, 9)]
+    tops = [s.query(Book).filter(Book.bid == t).first() for t in tops_id]  # 对象的集合
+    utops = [s.query(Book).filter(Book.bid == t1).first() for t1 in utops_id]
+    tops_info = []
+    utops_info = []
+    for top in tops:
+        tops_info.append({'bid':top.bid,'title':top.title,'author':top.author})
+    for utop in utops:
+        utops_info.append({'bid':utop.bid,'title':utop.title,'author':utop.author})
+    #comment
+    comment_info =[]
+    comments = s.query(UserBook).filter(and_(UserBook.bid == bookid,UserBook.comment !=None)).all()
+    for c in comments:
+        #这里created_at如果是decimal的话,json居然无法
+        user = s.query(User).filter(User.uid == c.uid).first()
+        comment_info.append({'uid':c.uid,'name':user.name,'comment':c.comment,'created_at':float(c.created_at)})
+    #tag
+    t = s.query(Tag).filter(Tag.bid == bookid).all()
+    tag_info = handle_tag(t)
+    #查询自己输入的
+    uid = check_login(session)
+    feedback_info= {}
+    if uid:
+        ub = s.query(UserBook).filter(UserBook.bid == bookid, UserBook.uid == uid).first()
+        if ub:
+            feedback_info['readed'] = ub.readed
+            feedback_info['star'] = ub.star
+            #这里暂时存疑
+            feedback_info['comment'] = ub.comment
+    s.close()
+    return jsonify({'bookinfo': book_info, 'comments': comment_info, 'tags': tag_info, 'tops': tops_info, 'utops': utops_info,'userbook':feedback_info})
 
 def handle_tag(tags):
     #tag要经过处理,计算多少种,数量有多少,以便按照大小排列
-    t = dict()
+    t ={}
+    t_info = []
     for tag in tags:
-        tt = tag.tag
-        if tt not in t:
-            t[tt] = 1
+        if tag.tag in t:
+            t[tag.tag] += tag.weight
         else:
-            t[tt]+=1
-    return t
+            t[tag.tag] = tag.weight
+    for key,value in t.items():
+        t_info.append({'tag':key,'weight':value})
+    return t_info
 
-@app.route('/register',methods = ['GET','POST'])
+@app.route('/register',methods = ['POST'])
 def register():
-    if request.method == 'POST':
-        name = request.form['name'].strip()
-        email = request.form['email'].strip()
-        passwd1 = request.form['password1'].strip()
-        passwd2 = request.form['password2'].strip()
-        if not name or not email or not passwd1 or not passwd2:
-            return render_template('register.html',error = '必填项不能为空')
-        if passwd1 != passwd2:
-            return render_template('register.html',error = '两次密码输入不相同')
-        s = DBSession()
-        users = s.query(User).filter(User.email == email).all()
-        if len(users) > 0:
-            s.close()
-            return render_template('register.html',error = '邮箱已存在')
-        passwd = '%s:%s' % (email, passwd1)
-        sha_passwd = hashlib.sha1(passwd.encode('utf-8')) #.encode('utf-8')
-        user = User(name= name,email=email,passwd = sha_passwd.hexdigest()) #实例化
-        #设置seesion,返回某个网页
-        s.add(user)
-        s.commit()
-        session['uid'] = user.uid #这里不能在commit之前,否则是None
+    data = json.loads(request.get_data().decode("utf-8"))
+    name = data['name'].strip()
+    email = data['email'].strip()
+    passwd1 = data['password1'].strip()
+    passwd2 = data['password2'].strip()
+    #简单验证
+    if not name or not email or not passwd1 or not passwd2:
+        return jsonify({'error':'输入为空'})
+    if passwd1 != passwd2:
+        return jsonify({'error':'两次密码输入不一致'})
+    #开始
+    s = DBSession()
+    users = s.query(User).filter(User.email == email).all()
+    if len(users) > 0:
         s.close()
-        return redirect(url_for('index'))
-    else:
-        return render_template('register.html')
+        return jsonify({'error':'邮箱已存在'})
+    passwd = '%s:%s' % (email, passwd1)
+    sha_passwd = hashlib.sha1(passwd.encode('utf-8'))  # .encode('utf-8')
+    user = User(name=name, email=email, passwd=sha_passwd.hexdigest(),created_at=float(time.time()))
+    s.add(user)
+    s.commit()
+    session['uid'] = user.uid
+    s.close()
+    return jsonify({'uid':user.uid,'name':name})
 
-@app.route('/login',methods = ['GET','POST'])
+@app.route('/login',methods = ['POST'])
 def login():
-    if request.method == 'POST':
-        email = request.form['email'].strip()
-        passwd = request.form['password'].strip()
-        if not email:
-            return render_template('login.html',error = '邮箱不能为空') #flash要在html里面有。
-        if not passwd:
-            return render_template('login.html',error = '密码不能为空')
-        s = DBSession()
-        users = s.query(User).filter(User.email == email).all()
-        if len(users) == 0:
-            return render_template('login.html',error = '邮箱不存在')
-        user = users[0]
-        #check passwd
-        passwd = '%s:%s' % (email, passwd)
-        sha1 = hashlib.sha1(passwd.encode('utf-8')) #.encode('utf-8')
-        if user.passwd != sha1.hexdigest():
-            return render_template('login.html',error = '邮箱或密码不准确') #error是什么还没研究好
-        #set session
-        session['uid'] = user.uid #这里和数据库的session冲突
+    data = json.loads(request.get_data().decode("utf-8"))
+    email = data.get('email')
+    passwd = data.get('password')
+    if not (email and email.strip()):
+        return jsonify({'error':'邮箱为空'})
+    if not passwd or not passwd.strip():
+        return jsonify({'error':'密码为空'})
+    s = DBSession()
+    users = s.query(User).filter(User.email == email).all()
+    if not users:
         s.close()
-        return redirect(url_for('index'))
-    else:
-        return render_template('login.html')
+        return jsonify({'error':'邮箱不存在'})
+    user = users[0]
+    # check passwd
+    passwd = '%s:%s' % (email, passwd)
+    sha1 = hashlib.sha1(passwd.encode('utf-8'))  # .encode('utf-8')
+    if user.passwd != sha1.hexdigest():
+        s.close()
+        return jsonify({'error':'邮箱或密码不正确'})  # error是什么还没研究好
+    # set session
+    session['uid'] = user.uid
+    s.close()
+    return jsonify({'uid':user.uid,'name':user.name})
 
 @app.route('/logout')
 def logout():
     if session and session.get('uid'):
     # remove the username from the session if it's there
-        session.pop('uid', None)
-    return redirect(url_for('index'))
+        session.pop('uid')
+        return jsonify({'OK': True})
+    else:
+        return jsonify({'error':'未登录'})
+
 
 @app.route('/usercenter')
 def usercenter():
-    user = check_login(session)
-    if not user:
-        return redirect(url_for('login'))
-    else:
-        s = DBSession()
-        userbook = s.query(UserBook).filter(UserBook.uid == user.uid).all()
-        urecommend = s.query(UserRecommend).filter(UserRecommend.uid == user.uid).first()
-        utops = []
-        if urecommend:
-            utops_id = [getattr(urecommend, 't' + str(i)) for i in range(1, 9)]  # id的集合
-            utops = [s.query(Book).filter(Book.bid == t).first() for t in utops_id]  # 对象的集合
-        s.close()
-        return render_template('usercenter.html',user = user,userbook = userbook,utops = utops)
+    uid = check_login(session)
+    if not uid:
+        return jsonify({'error':'未登录'})
+    s = DBSession()
+    user = s.query(User).filter(User.uid ==uid).first()
+    user_info = {'email':user.email}
+    #ub
+    userbooks = s.query(UserBook).filter(UserBook.uid == uid).all()
+    ub_infos = []
+    for ub in userbooks:
+        book = s.query(Book).filter(Book.bid == ub.bid).first()
+        ub_info = {'title':book.title,'author':book.author,'readed':ub.readed,'star':ub.star,'comment':ub.comment}
+        ub_infos.append(ub_info)
+    #recommend
+    urecommend = s.query(UserRecommend).filter(UserRecommend.uid == uid).first()
+    utops = []
+    if urecommend:
+        utops_id = [getattr(urecommend, 't' + str(i)) for i in range(1, 9)]  # id的集合
+        utops = [s.query(Book).filter(Book.bid == t).first() for t in utops_id]  # 对象的集合
+    s.close()
+    return jsonify({'user_infos':user_info,'ub_info':ub_infos,'utops':utops})
 
 #@app.route('/user/<int:userid>')
 #def user():
-#    pass
+#    pa
+
+@app.route('/book/<int:bookid>/feedback/<arg>', methods=['POST'])
+def feedback(bookid,arg):
+    if arg not in ['readed','star','comment']:
+        return {'error':'feedback中部包含此键'}
+    uid = check_login(session)
+    if not uid:
+        return jsonify({'error':'未登录'})
+    data = json.loads(request.get_data().decode("utf-8"))
+    arg_value = data.get(str(arg))
+    print (arg,arg_value)
+    try:
+        s = DBSession()
+        book = s.query(Book).filter(Book.bid == bookid).all()
+        if not book: #可以删掉,有try
+            return jsonify({'error': '本书不存在'})
+        exist = s.query(UserBook).filter(UserBook.uid == uid,UserBook.bid == bookid).first()
+        if not exist:
+            if str(arg) == 'comment':
+                exist = UserBook(uid = uid,bid = bookid,arg = arg_value,created_at =float(time.time())) #如果是comment的话
+            else:
+                exist = UserBook(uid = uid,bid = bookid,arg = arg_value) #如果是comment的话
+            s.add(exist)
+        else:
+            setattr(exist,arg,arg_value)
+        s.commit()
+        arg_info = {'uid': exist.uid, 'created_at': float(time.time()), str(arg): getattr(exist,arg)}
+        s.close()
+        return jsonify(arg_info)
+    except Exception as e:
+        app.logger.warning(e)
+        return jsonify({'error': str(e)})
+
+
+@app.route('/book/<int:bookid>/feedback/tag', methods=['POST'])
+def feedback_tag(bookid):
+    #添加tag
+    uid = check_login(session)
+    if not uid:
+        return jsonify({'error':'未登录'})
+    data = json.loads(request.get_data().decode("utf-8"))
+    tag_data =data.get('tag')
+    tags = tag_data.split('#')
+    try:
+        s = DBSession()
+        book = s.query(Book).filter(Book.bid == bookid).all()
+        if not book: #可以删掉,有try
+            return jsonify({'error': '本书不存在'})
+        #添加tag
+        ts_info = []
+        for tag in tags:
+            if tag:
+                exist = s.query(Tag).filter(Tag.bid == bookid,Tag.tag == tag).first()
+                if exist:
+                    exist.weight +=100
+                else:
+                    exist = Tag(uid=uid, bid=bookid, tag=tag,weight = 100)
+                    s.add(exist)
+                s.commit()
+                t = {'uid': exist.uid, 'created_at': float(exist.created_at), 'tag': exist.tag,
+                     'weight': exist[0].weight}
+                ts_info.append(t)
+        s.close()
+        return jsonify({'tag':ts_info})
+    except Exception as e:
+        app.logger.warning(e)
+        return jsonify({'error': str(e)})
 
 
 def check_login(session):
@@ -172,95 +257,9 @@ def check_login(session):
     u = s.query(User).filter(User.uid == uid).all()
     s.close()
     if u:
-        user = u[0]
-        return user
+        return uid
     else:
         return None
-
-@app.route('/book/feedback_readed/<int:bookid>/', methods=['POST'])
-def feedback_readed(bookid):
-    #添加tag
-    user = check_login(session)
-    if not user:
-        return redirect(url_for('index'))
-    uid = session['uid']
-    readed = request.form['readed']
-    try:
-        s = DBSession()
-        exist = s.query(UserBook).filter(uid = uid,bid = bookid).first()
-        if not exist:
-            new = UserBook(uid = uid,bid = bookid,readed = readed)
-            s.add(new)
-        else:
-            exist.readed = readed
-        s.commit()
-        s.close()
-    except Exception as e:
-        app.logger.warning(e)
-
-@app.route('/book/feedback_star/<int:bookid>/', methods=['POST'])
-def feedback_star(bookid):
-    #添加tag
-    user = check_login(session)
-    if not user:
-        return redirect(url_for('index'))
-    uid = session['uid']
-    star = request.form['star']
-    try:
-        s = DBSession()
-        exist = s.query(UserBook).filter(uid = uid,bid = bookid).first()
-        if not exist:
-            new = UserBook(uid = uid,bid = bookid,star = star)
-            s.add(new)
-        else:
-            exist.star = star
-        s.commit()
-        s.close()
-    except Exception as e:
-        app.logger.warning(e)
-
-@app.route('/book/feedback_comment/<int:bookid>/', methods=['POST'])
-def feedback_comment(bookid):
-    #添加tag
-    user = check_login(session)
-    if not user:
-        return redirect(url_for('index'))
-    uid = session['uid']
-    comment = request.form['comment']
-    try:
-        s = DBSession()
-        exist = s.query(UserBook).filter(uid = uid,bid = bookid).first()
-        if not exist:
-            new = UserBook(uid = uid,bid = bookid,comment = comment)
-            s.add(new)
-        else:
-            exist.comment = comment
-        s.commit()
-        s.close()
-    except Exception as e:
-        app.logger.warning(e)
-
-@app.route('/book/feedback_tag/<int:bookid>/', methods=['POST'])
-def feedback_tag(bookid):
-    #添加tag
-    user = check_login(session)
-    if not user:
-        return redirect(url_for('index'))
-    uid = session['uid']
-    tag_info = request.form['status'].strip()
-    tags = tag_info.split('#')
-    try:
-        s = DBSession()
-        #添加tag
-        for tag in tags:
-            t = Tag(uid=uid, bid=bookid, tag=tag)
-            s.add(t)
-        s.commit()
-        s.close()
-    except Exception as e:
-        app.logger.warning(e)
-
-
 if __name__ == '__main__':
     configs = config_default.configs
     #启动logger
@@ -274,9 +273,8 @@ if __name__ == '__main__':
 
     #启动服务器
     app.logger.info('Start the server!!!!!')
-    app.run(host='0.0.0.0',port = 80) #port = 80,debug = True
+    app.run(host='0.0.0.0') #port = 80,debug = True
 
 
-#删除多余的logger,记录错误的logger(warning)
 
 
